@@ -1,6 +1,13 @@
 language: ruby
 rvm:
-  - 2.0.0-p481
-
+- 2.0.0-p481
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+- psql -c 'create database travis_ci_test;' -U postgres
+deploy:
+  provider: heroku
+  api_key:
+    secure: D11MNhpDZK4x/0/gPkC3pLvnKG03tLKUy5kzOC80wsNtxC8qJW2lbTaXKSL7D9o1V1B1wTKnH2UuRHmnDyo4oTknnDiqGnX7ovYBZxo3uGnrr4kXemmjrLQnivC7hpQzGboDgdIJhUSxO6kXDSpaoQM8/QzYXu3n5mMC9Eq1p/g=
+  app: travis-test-brooke
+  run:
+    - "rake db:migrate"
+    - restart
